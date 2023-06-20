@@ -1,11 +1,32 @@
 package com.example.demo.model;
 
+import org.apache.catalina.User;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Table(name = "event")
 public class Event {
 
-    // Attributes
+    @Id
+    @Column(name = "id")
+    @GeneratedValue
+    private int id;
+
+    @Column(name = "place")
     private String place;
+
+    @Column(name = "count")
     private int count;
+
+    @Column(name = "maxCount")
     private int maxCount;
+
+    @ManyToMany(mappedBy = "eventSet")
+    private Set<Users> userSet = new HashSet<>();
 
     public String getPlace() {
         return place;
@@ -29,5 +50,15 @@ public class Event {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", place='" + place + '\'' +
+                ", count=" + count +
+                ", maxCount=" + maxCount +
+                '}';
     }
 }
